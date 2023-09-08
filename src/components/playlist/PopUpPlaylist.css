@@ -1,0 +1,28 @@
+.card > div {
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+}
+
+.card.sideA .front_cassette {
+  transform: perspective(500px) rotateY(0deg);
+}
+
+.card.sideA .back_cassette {
+  transform: perspective(500px) rotateY(180deg);
+}
+
+.card.sideB .front_cassette {
+  transform: perspective(500px) rotateY(180deg);
+}
+
+.card.sideB .back_cassette {
+  transform: perspective(500px) rotateY(360deg);
+}
+
+/* .card:hover .front_cassette {
+  transform: perspective(600px) rotateY(-180deg);
+}
+
+.card:hover .back_cassette {
+  transform: perspective(600px) rotateY(0deg);
+} */
