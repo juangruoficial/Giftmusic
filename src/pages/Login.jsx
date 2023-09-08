@@ -1,25 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ConatainerAuth from "../components/layout/ConatainerAuth";
 
-import { axiosMusic } from "../config/axios.config";
-import { useUserInfo } from "../store/userInfo";
+import useLogin from "../hooks/login/useLogin";
 
 const Login = () => {
-  const setUser = useUserInfo((state) => state.setUser);
-
-  const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target));
-
-    axiosMusic
-      .post("/api/auth/login", data)
-      .then(({ data }) => {
-        setUser(data);
-        navigate("/");
-      }) //tengo que hgacer loader para peticiones tambien organizar peticiones en servicios
-      .catch((err) => console.log(err));
-  };
+  const { handleSubmit } = useLogin();
   return (
     <ConatainerAuth>
       <header className="hidden sm:block sm:max-w-[350px] rounded-xl overflow-hidden ">

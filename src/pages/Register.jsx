@@ -1,21 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ConatainerAuth from "../components/layout/ConatainerAuth";
-import { axiosMusic } from "../config/axios.config";
+import useRegister from "../hooks/register/useRegister";
 
 const Register = () => {
-  const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target));
-    console.log(data);
-    axiosMusic
-      .post("/api/auth/register", data)
-      .then(() => {
-        alert("Account created successfully");
-        navigate("/auth/login");
-      })
-      .catch((err) => console.log(err));
-  };
+  const { handleSubmit } = useRegister();
   return (
     <ConatainerAuth>
       <header className="hidden sm:block sm:max-w-[350px] rounded-xl overflow-hidden ">

@@ -1,42 +1,22 @@
-import { useEffect, useRef, useState } from "react";
 import ContainerMusic from "../components/layout/ContainerMusic";
 import PublicLayout from "../components/layout/PublicLayout";
-import { axiosMusic } from "../config/axios.config";
-import { useParams } from "react-router-dom";
+
 import ListPlaylistDetail from "../components/playlistDetail.jsx/ListPlaylistDetail";
 import { PlusIcon, ShareIcon } from "../components/shared/Icons";
 import EmbedTrack from "../components/shared/EmbedTrack";
+import usePlaylistPublic from "../hooks/playlistPublic/usePlaylistPublic";
 
 const PlaylistPublic = () => {
-  const [isShowingSideA, setIsShowingSideA] = useState(true);
-  const [playlistInfo, setPlaylistInfo] = useState(null);
-  const [currentTrack, setCurrentTrack] = useState(null);
-  const formRef = useRef(null);
-  const { id } = useParams();
+  const {
+    isShowingSideA,
+    setIsShowingSideA,
+    playlistInfo,
+    formRef,
+    handleCopyLink,
+    currentTrack,
+    setCurrentTrack,
+  } = usePlaylistPublic();
 
-  const handleCopyLink = () => {
-    const link = window.location.href;
-    navigator.clipboard
-      .writeText(link)
-      .then(() => alert("Link copied to clipboard"));
-  };
-
-  useEffect(() => {
-    axiosMusic
-      .get(`/api/playlists/${id}`)
-      .then(({ data }) => setPlaylistInfo(data))
-      .catch((err) => console.log(err));
-  }, [id]);
-
-  useEffect(() => {
-    if (playlistInfo) {
-      formRef.current.playlistDetailTitle.value = playlistInfo.title;
-      formRef.current.playlistDetailTo.value = playlistInfo.to;
-      formRef.current.playlistDetailMessage.value = playlistInfo.message;
-    }
-  }, [playlistInfo]);
-
-  console.log(id);
   return (
     <PublicLayout>
       <ContainerMusic>

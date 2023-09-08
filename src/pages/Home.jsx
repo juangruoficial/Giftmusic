@@ -1,52 +1,11 @@
-import { useEffect, useState } from "react";
 import ContainerMusic from "../components/layout/ContainerMusic";
 import { SearchIcon } from "../components/shared/Icons";
-import { axiosMusic } from "../config/axios.config";
 import ListTrackDefault from "../components/shared/ListTrackDefault";
-import EmbedTrack from "../components/shared/EmbedTrack";
-
+import { optionsLimit } from "../components/shared/constOptionLimit";
+import useHome from "../hooks/home/useHome";
 const Home = () => {
-  const [tracksRecommendations, settracksRecommendations] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-  const [limitTracks, setLimitTracks] = useState(10);
-  const [currentTrack, setCurrentTrack] = useState(null);
-
-  const optionsLimit = [
-    { value: 10, label: "10" },
-    { value: 20, label: "20" },
-    { value: 30, label: "30" },
-    { value: 40, label: "40" },
-    { value: 50, label: "50" },
-  ];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const querySearch = e.target.home_search.value;
-    if (!querySearch) return setSearchResults([]);
-    axiosMusic
-      .get(`/api/tracks?limit=${limitTracks}&q=${querySearch}`)
-      .then(({ data }) => setSearchResults(data.tracks.items))
-      .catch((err) => console.log(err));
-  };
-
-  const handleLimitChange = (e) => {
-    const newLimit = parseInt(e.target.value, 10);
-    setLimitTracks(newLimit);
-  };
-
-  const tracksToShow = searchResults?.length
-    ? searchResults
-    : tracksRecommendations;
-
-  useEffect(() => {
-    axiosMusic
-      .get("/api/tracks/recommendations?seed_genres=techno,trip-hop,groove")
-      .then(({ data }) => settracksRecommendations(data.tracks))
-      .catch((err) => console.log(err));
-  }, []);
-
-  //"techno" ,"trip-hop""groove"
+  const { handleSubmit, handleLimitChange, tracksToShow, limitTracks } =
+    useHome();
 
   return (
     <ContainerMusic>
