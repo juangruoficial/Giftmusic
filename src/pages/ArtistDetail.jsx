@@ -6,6 +6,15 @@ import SwiperList from "../components/trackDetail/SwiperList";
 import ListTracksDefault from "../components/shared/ListTrackDefault";
 const ArtistDetail = () => {
   const [artist, setArtist] = useState(null);
+  const formatNumberWithUnits = (number) => {
+    if (number > 1000000) {
+      return `${(number / 1000000).toFixed(2)} M`;
+    }
+    if (number > 1000) {
+      return `${(number / 1000).toFixed(2)} K`;
+    }
+    return number.toString();
+  };
 
   const { id } = useParams();
 
@@ -35,17 +44,28 @@ const ArtistDetail = () => {
         </div>
 
         <section>
-          <h2 className="text-xl font-semibold line-clamp-1">{artist?.name}</h2>
-          <ul>
-            <li className="font-light">
-              <span className="font font-semibold">Followers:</span>
-              <span> {artist?.followers.total}</span>
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-2">
+            {artist?.name}
+          </h2>
+          <ul className="space-y-2">
+            <li className="flex items-center text-gray-600 dark:text-gray-300">
+              <span className="text-gray-800 dark:text-white font-semibold mr-2">
+                Followers:
+              </span>
+              <span className="text-gray-700 dark:text-gray-400">
+                {formatNumberWithUnits(artist?.followers.total ?? 0) /* 1.2M */}
+              </span>
             </li>
-            <li className="font-light">
-              <span className="font font-semibold">Popularity:</span>
-              <span> {artist?.popularity}</span>
+            <li className="flex items-center text-gray-600 dark:text-gray-300">
+              <span className="text-gray-800 dark:text-white font-semibold mr-2">
+                Popularity:
+              </span>
+              <span className="text-gray-700 dark:text-gray-400">
+                {artist?.popularity}
+              </span>
             </li>
           </ul>
+
           <section>
             <h4 className="font font-semibold">Genres</h4>
             <ul className="flex flex-wrap gap-2 mt-2">
