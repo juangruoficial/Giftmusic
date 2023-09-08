@@ -1,7 +1,17 @@
 import { Link } from "react-router-dom";
-import { DeleteIcon } from "../shared/Icons";
+import { DeleteIcon, PlayIcon } from "../shared/Icons";
 
-const TrackByPlaylistDetail = ({ track, handleDeleteTrackFromPlaylist }) => {
+const TrackByPlaylistDetail = ({
+  track,
+  handleDeleteTrackFromPlaylist,
+  showDeleteBtn,
+  showPlayBtn,
+  setCurrentTrack,
+}) => {
+  const handlePlaySong = () => {
+    setCurrentTrack(track.spotifyId);
+  };
+
   return (
     <article
       key={track.id}
@@ -33,12 +43,20 @@ const TrackByPlaylistDetail = ({ track, handleDeleteTrackFromPlaylist }) => {
       </section>
 
       <section className="flex items-center gap-2">
-        <button
-          onClick={() => handleDeleteTrackFromPlaylist(track.id)}
-          className="group"
-        >
-          <DeleteIcon />
-        </button>
+        {showDeleteBtn && (
+          <button
+            onClick={() => handleDeleteTrackFromPlaylist(track.id)} // remove
+            className="group"
+          >
+            <DeleteIcon />
+          </button>
+        )}
+
+        {showPlayBtn && (
+          <button onClick={handlePlaySong} className="group">
+            <PlayIcon />
+          </button>
+        )}
       </section>
     </article>
   );

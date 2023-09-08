@@ -2,8 +2,12 @@ import { Link } from "react-router-dom";
 import { PlayIcon, PlusIcon } from "./Icons";
 import { usePlaylistCart } from "../../store/playlistCart";
 
-const TrackDefaultCard = ({ track }) => {
+const TrackDefaultCard = ({ track, setCurrentTrack }) => {
   const addTrackToPlaylist = usePlaylistCart((state) => state.addTrack);
+
+  const handlePlaySong = () => {
+    setCurrentTrack(track.spotifyId);
+  };
 
   return (
     <article className="flex items-center gap-2 hover:bg-white/20 p-1 rounded-md pr-2 transition-colors">
@@ -33,7 +37,7 @@ const TrackDefaultCard = ({ track }) => {
       </section>
 
       <section className="flex items-center gap-2">
-        <button className="group">
+        <button onClick={handlePlaySong} className="group">
           <PlayIcon />
         </button>
         <button

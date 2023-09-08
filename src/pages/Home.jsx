@@ -3,11 +3,13 @@ import ContainerMusic from "../components/layout/ContainerMusic";
 import { SearchIcon } from "../components/shared/Icons";
 import { axiosMusic } from "../config/axios.config";
 import ListTrackDefault from "../components/shared/ListTrackDefault";
+import EmbedTrack from "../components/shared/EmbedTrack";
 
 const Home = () => {
   const [tracksRecommendations, settracksRecommendations] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [limitTracks, setLimitTracks] = useState(10);
+  const [currentTrack, setCurrentTrack] = useState(null);
 
   const optionsLimit = [
     { value: 10, label: "10" },
