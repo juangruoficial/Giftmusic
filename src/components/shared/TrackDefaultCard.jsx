@@ -27,7 +27,7 @@ const TrackDefaultCard = ({ track, setCurrentTrack }) => {
             <Link
               key={artist.id}
               to={`/artists/${artist.id}`}
-              className="text-slate-400 font-light line-clamp-1 hover:underline"
+              className="inline text-slate-400 font-light line-clamp-1 hover:underline"
             >
               {artist.name}
               {index < track.artists.length - 1 && ", "}
