@@ -35,10 +35,7 @@ const ArtistDetail = () => {
         </div>
 
         <section>
-          <h2 className="text-xl font-semibold line-clamp-1">
-            {" "}
-            {artist?.name}
-          </h2>
+          <h2 className="text-xl font-semibold line-clamp-1">{artist?.name}</h2>
           <ul>
             <li className="font-light">
               <span className="font font-semibold">Followers:</span>
